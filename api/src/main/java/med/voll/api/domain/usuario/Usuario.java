@@ -19,6 +19,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+
+//implementando a interface UserDatails para o spring entender o login e senha
+//implementando todos metodos da interface
+
 public class Usuario implements UserDetails {
 
     @Id
@@ -29,6 +33,10 @@ public class Usuario implements UserDetails {
     private String senha;
 
 
+    //serve para se no projeto tiver controle de permissao (admin/usuario) precisa de uma classe
+    // que represente estes perfis
+    //simulamos uma coleção para compilar o projeto porem nao teremos esse controle de permissao
+    //todos usaram o projeto
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
@@ -39,21 +47,29 @@ public class Usuario implements UserDetails {
         return senha;
     }
 
+    //qual atributo é nosso username
     @Override
     public String getUsername() {
         return login;
     }
 
+
+
+    // para usar estes metodos de controle basta apenas criar atributos que repesentam estas funções e passar eles
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+
+    //conta do usuario pode ser bloqueada
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+
+    //a conta tem data de expiração
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
